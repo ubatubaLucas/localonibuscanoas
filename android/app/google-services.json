@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1027803139568",
+    "project_id": "localonibuscanoas",
+    "storage_bucket": "localonibuscanoas.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1027803139568:android:e7bfaed1c27aa89df02135",
+        "android_client_info": {
+          "package_name": "br.com.localonibus"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1027803139568-l296pus31bljoj1fn7ir4dvalu235irc.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA9cwKU2Ibq2hZVuflIuJ0eNNc34KXXZLc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1027803139568-l296pus31bljoj1fn7ir4dvalu235irc.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
