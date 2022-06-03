@@ -28,7 +28,7 @@ class _ConsultaVeiculoState extends State<ConsultaVeiculo> {
 
     FirebaseFirestore db = FirebaseFirestore.instance;
     Query query = await db
-        .collection("20220303")
+        .collection("VIAGENS")
         .orderBy("dataInicioDTORDERBY", descending: true)
         .orderBy("turnoORDERBY", descending: false)
         .orderBy("rotaORDERBY", descending: false)

@@ -33,6 +33,18 @@ class _ConsultaPrepostoState extends State<ConsultaPreposto> {
 
   }
 
+  _relatorioViagens() {
+
+    Navigator.pushNamed(context, "/RelatorioViagens");
+
+  }
+
+  _consultarOcorrencia() {
+
+    Navigator.pushNamed(context, "/ConsultarOcorrencia");
+
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -74,6 +86,17 @@ class _ConsultaPrepostoState extends State<ConsultaPreposto> {
                     }
                 )
             ),
+            SizedBox(height: 20,),
+            SizedBox(
+                width: 250,
+                child: BotaoCustomizado(
+                    corFundo: Colors.grey,
+                    texto: "RELATÓRIO",
+                    onPressed: () {
+                      _relatorioViagens();
+                    }
+                )
+            ),
             SizedBox(height: 40,),
             SizedBox(
                 width: 250,
@@ -105,6 +128,17 @@ class _ConsultaPrepostoState extends State<ConsultaPreposto> {
                     texto: "VEÍCULO",
                     onPressed: () {
                       _consultarVeiculo();
+                    }
+                )
+            ),
+            SizedBox(height: 20,),
+            SizedBox(
+                width: 250,
+                child: BotaoCustomizado(
+                    corFundo: Colors.orange,
+                    texto: "OCORRÊNCIA",
+                    onPressed: () {
+                      _consultarOcorrencia();
                     }
                 )
             ),

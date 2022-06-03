@@ -19,7 +19,7 @@ class RegistrarViagemMotorista extends StatefulWidget {
 
 class _RegistrarViagemMotoristaState extends State<RegistrarViagemMotorista> {
 
-  List<String> clientes = ["AGCO", "EDLO", "FRUKI", "KUEHNE NAGEL", "MIDEA CARRIER", "MILLS", "PETROBRAS", "PROLEC GE", "TEDESCO", "TERESA", "UNIDASUL"];
+  List<String> clientes = ["AGCO", "EDLO", "EVENTUAL", "FRUKI", "KUEHNE NAGEL", "MIDEA CARRIER", "MILLS", "PETROBRAS", "PROLEC GE", "TEDESCO", "TERESA", "UNIDASUL"];
 
   List<String> turnos = [];
   List<String> turnosAgco = ["ADM", "ESTAGIARIOS", "T2"];
@@ -58,7 +58,7 @@ class _RegistrarViagemMotoristaState extends State<RegistrarViagemMotorista> {
   List<String> rotasTedescoTurnoB = ["3"];
   List<String> rotasTedescoTurnoC = ["4"];
   List<String> rotasTeresaCircular = ["07H45", "11H40", "15H40"];
-  List<String> rotasUnidasulEstacao = ["04H55", "09H50", "10H55", "14H30", "17H05", "20H00"];
+  List<String> rotasUnidasulEstacao = ["04H55", "09H50", "10H55", "14H30", "16H40", "20H00"];
   List<String> rotasUnidasulT1 = ["01","02","03","04"];
   List<String> rotasUnidasulT2 = ["10","11","12","13"];
   List<String> rotas = [];
@@ -86,6 +86,7 @@ class _RegistrarViagemMotoristaState extends State<RegistrarViagemMotorista> {
   TextEditingController _controllerKmInicio = TextEditingController(text: "");
   TextEditingController _controllerKmFim = TextEditingController(text: "");
   TextEditingController _controllerQtdPax = TextEditingController(text: "");
+  TextEditingController _controllerFicha = TextEditingController(text: "");
 
   late DateTime _getDataInicioDT;
   late DateTime _getDataFimDT;
@@ -157,7 +158,26 @@ class _RegistrarViagemMotoristaState extends State<RegistrarViagemMotorista> {
 
     _viagem.motorista = _matriculaUser! + " - " + _nomeUser!;
 
-      db.collection("20220303")
+    if (selectedCliente == "EVENTUAL") {
+
+      _viagem.turno = "EVENTUAL";
+      _viagem.turnoORDERBY = "EVENTUAL";
+      _viagem.rota = "EVENTUAL";
+      _viagem.rotaORDERBY = "EVENTUAL";
+      _viagem.normalExtra = "EVENTUAL";
+      _viagem.entradaSaida = "EVENTUAL";
+
+    }
+
+      if (selectedCliente != "EVENTUAL") {
+
+        _viagem.ficha = 0;
+
+      }
+
+
+
+      db.collection("VIAGENS")
           .doc( _viagem.id )
           .set(_viagem.toMap()).then((_) {
         Navigator.pop(_dialogContext);
@@ -328,208 +348,235 @@ class _RegistrarViagemMotoristaState extends State<RegistrarViagemMotorista> {
                     ),
                   ),
                 ],),
-                Row(children: <Widget>[
-                  Text("TURNO:", style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),),
-                  Expanded(
-                    child: Padding(
+                if (selectedCliente == "EVENTUAL") ...[
+                  Row(children: <Widget>[
+                    Text("FICHA:", style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),),
+                    Expanded(child: Padding(
                       padding: EdgeInsets.all(8),
-                      child: DropdownButtonFormField<String>(
-                        value: selectedTurno,
-                        style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 20
+                      child: InputCustomizado(
+                          controller: _controllerFicha,
+                          hint: "N° VIAGEM",
+                          onSaved: (ficha) {
+                            _viagem.ficha = int.parse(ficha!.replaceAll(".", ""));
+                            return null;
+                          },
+                          validator: (value) {
+                            return Validador()
+                                .add(Validar.OBRIGATORIO, msg: "Campo Obrigatório")
+                                .valido(value);
+                          },
+                          type: TextInputType.number,
+                          inputFormatters: [
+                            FilteringTextInputFormatter.digitsOnly,
+                          ]
+                      ),
+                    ))
+                  ],),
+                ] else ...[
+                  Row(children: <Widget>[
+                    Text("TURNO:", style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),),
+                    Expanded(
+                      child: Padding(
+                        padding: EdgeInsets.all(8),
+                        child: DropdownButtonFormField<String>(
+                          value: selectedTurno,
+                          style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 20
+                          ),
+                          hint: Text("SELECIONAR"),
+                          items: turnos.map((String value) {
+                            return DropdownMenuItem<String>(
+                                value: value,
+                                child: Text(value.toUpperCase())
+                            );
+                          }).toList(),
+                          onSaved: (turno) {
+                            _viagem.turno = turno!;
+                            _viagem.turnoORDERBY = _viagem.turno;
+                          },
+                          validator: (value) {
+                            return Validador()
+                                .add(Validar.OBRIGATORIO, msg: "Campo Obrigatório")
+                                .valido(value);
+                          },
+                          onChanged: (turno) {
+
+                            if (turno == "ADM" && selectedCliente == "AGCO") {
+                              rotas = rotasAgcoAdm;}
+                            else if (turno == "ESTAGIARIOS" && selectedCliente == "AGCO") {
+                              rotas = rotasAgcoEstagiarios;}
+                            else if (turno == "T2" && selectedCliente == "AGCO") {
+                              rotas = rotasAgcoT2;}
+                            else if (turno == "ADM" && selectedCliente == "EDLO") {
+                              rotas = rotasEdloAdm;}
+                            else if (turno == "ESTACAO" && selectedCliente == "FRUKI") {
+                              rotas = rotasFrukiEstacao;}
+                            else if (turno == "4X3" && selectedCliente == "KUEHNE NAGEL") {
+                              rotas = rotasKuehne4x3;}
+                            else if (turno == "5X2" && selectedCliente == "KUEHNE NAGEL") {
+                              rotas = rotasKuehne5x2;}
+                            else if (turno == "6X1" && selectedCliente == "KUEHNE NAGEL") {
+                              rotas = rotasKuehne6x1;}
+                            else if (turno == "REFEICOES" && selectedCliente == "KUEHNE NAGEL") {
+                              rotas = rotasKuehneRefeicoes;}
+                            else if (turno == "ADM" && selectedCliente == "MIDEA CARRIER") {
+                              rotas = rotasMideaAdm;}
+                            else if (turno == "T2" && selectedCliente == "MIDEA CARRIER") {
+                              rotas = rotasMideaT2;}
+                            else if (turno == "ADM" && selectedCliente == "MILLS") {
+                              rotas = rotasMillsAdm;}
+                            else if (turno == "ADM" && selectedCliente == "PETROBRAS") {
+                              rotas = rotasPetrobrasAdm;}
+                            else if (turno == "INTERNO" && selectedCliente == "PETROBRAS") {
+                              rotas = rotasPetrobrasInterno;}
+                            else if (turno == "TURNO" && selectedCliente == "PETROBRAS") {
+                              rotas = rotasPetrobrasTurno;}
+                            else if (turno == "ADM" && selectedCliente == "PROLEC GE") {
+                              rotas = rotasProlecAdm;}
+                            else if (turno == "ESTAGIARIOS" && selectedCliente == "PROLEC GE") {
+                              rotas = rotasProlecEstagiarios;}
+                            else if (turno == "T1" && selectedCliente == "PROLEC GE") {
+                              rotas = rotasProlecT1;}
+                            else if (turno == "T2" && selectedCliente == "PROLEC GE") {
+                              rotas = rotasProlecT2;}
+                            else if (turno == "ADM" && selectedCliente == "TEDESCO") {
+                              rotas = rotasTedescoAdm;}
+                            else if (turno == "TURNO A" && selectedCliente == "TEDESCO") {
+                              rotas = rotasTedescoTurnoA;}
+                            else if (turno == "TURNO B" && selectedCliente == "TEDESCO") {
+                              rotas = rotasTedescoTurnoB;}
+                            else if (turno == "TURNO C" && selectedCliente == "TEDESCO") {
+                              rotas = rotasTedescoTurnoC;}
+                            else if (turno == "CIRCULAR" && selectedCliente == "TERESA") {
+                              rotas = rotasTeresaCircular;}
+                            else if (turno == "ESTACAO" && selectedCliente == "UNIDASUL") {
+                              rotas = rotasUnidasulEstacao;}
+                            else if (turno == "T1" && selectedCliente == "UNIDASUL") {
+                              rotas = rotasUnidasulT1;}
+                            else if (turno == "T2" && selectedCliente == "UNIDASUL") {
+                              rotas = rotasUnidasulT2;}
+                            else {rotas = [];}
+
+                            setState(() {
+                              selectedTurno = turno;
+                              selectedRota = null;
+
+                            });
+
+                          },
                         ),
-                        hint: Text("SELECIONAR"),
-                        items: turnos.map((String value) {
-                          return DropdownMenuItem<String>(
-                              value: value,
-                              child: Text(value.toUpperCase())
-                          );
-                        }).toList(),
-                        onSaved: (turno) {
-                          _viagem.turno = turno!;
-                          _viagem.turnoORDERBY = _viagem.turno;
-                        },
-                        validator: (value) {
-                          return Validador()
-                              .add(Validar.OBRIGATORIO, msg: "Campo Obrigatório")
-                              .valido(value);
-                        },
-                        onChanged: (turno) {
-
-                          if (turno == "ADM" && selectedCliente == "AGCO") {
-                            rotas = rotasAgcoAdm;}
-                          else if (turno == "ESTAGIARIOS" && selectedCliente == "AGCO") {
-                            rotas = rotasAgcoEstagiarios;}
-                          else if (turno == "T2" && selectedCliente == "AGCO") {
-                            rotas = rotasAgcoT2;}
-                          else if (turno == "ADM" && selectedCliente == "EDLO") {
-                            rotas = rotasEdloAdm;}
-                          else if (turno == "ESTACAO" && selectedCliente == "FRUKI") {
-                            rotas = rotasFrukiEstacao;}
-                          else if (turno == "4X3" && selectedCliente == "KUEHNE NAGEL") {
-                            rotas = rotasKuehne4x3;}
-                          else if (turno == "5X2" && selectedCliente == "KUEHNE NAGEL") {
-                            rotas = rotasKuehne5x2;}
-                          else if (turno == "6X1" && selectedCliente == "KUEHNE NAGEL") {
-                            rotas = rotasKuehne6x1;}
-                          else if (turno == "REFEICOES" && selectedCliente == "KUEHNE NAGEL") {
-                            rotas = rotasKuehneRefeicoes;}
-                          else if (turno == "ADM" && selectedCliente == "MIDEA CARRIER") {
-                            rotas = rotasMideaAdm;}
-                          else if (turno == "T2" && selectedCliente == "MIDEA CARRIER") {
-                            rotas = rotasMideaT2;}
-                          else if (turno == "ADM" && selectedCliente == "MILLS") {
-                            rotas = rotasMillsAdm;}
-                          else if (turno == "ADM" && selectedCliente == "PETROBRAS") {
-                            rotas = rotasPetrobrasAdm;}
-                          else if (turno == "INTERNO" && selectedCliente == "PETROBRAS") {
-                            rotas = rotasPetrobrasInterno;}
-                          else if (turno == "TURNO" && selectedCliente == "PETROBRAS") {
-                            rotas = rotasPetrobrasTurno;}
-                          else if (turno == "ADM" && selectedCliente == "PROLEC GE") {
-                            rotas = rotasProlecAdm;}
-                          else if (turno == "ESTAGIARIOS" && selectedCliente == "PROLEC GE") {
-                            rotas = rotasProlecEstagiarios;}
-                          else if (turno == "T1" && selectedCliente == "PROLEC GE") {
-                            rotas = rotasProlecT1;}
-                          else if (turno == "T2" && selectedCliente == "PROLEC GE") {
-                            rotas = rotasProlecT2;}
-                          else if (turno == "ADM" && selectedCliente == "TEDESCO") {
-                            rotas = rotasTedescoAdm;}
-                          else if (turno == "TURNO A" && selectedCliente == "TEDESCO") {
-                            rotas = rotasTedescoTurnoA;}
-                          else if (turno == "TURNO B" && selectedCliente == "TEDESCO") {
-                            rotas = rotasTedescoTurnoB;}
-                          else if (turno == "TURNO C" && selectedCliente == "TEDESCO") {
-                            rotas = rotasTedescoTurnoC;}
-                          else if (turno == "CIRCULAR" && selectedCliente == "TERESA") {
-                            rotas = rotasTeresaCircular;}
-                          else if (turno == "ESTACAO" && selectedCliente == "UNIDASUL") {
-                            rotas = rotasUnidasulEstacao;}
-                          else if (turno == "T1" && selectedCliente == "UNIDASUL") {
-                            rotas = rotasUnidasulT1;}
-                          else if (turno == "T2" && selectedCliente == "UNIDASUL") {
-                            rotas = rotasUnidasulT2;}
-                          else {rotas = [];}
-
-                          setState(() {
-                            selectedTurno = turno;
-                            selectedRota = null;
-
-                          });
-
-                        },
                       ),
                     ),
-                  ),
-                ],),
-                Row(children: <Widget>[
-                  Text("ROTA:", style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),),
-                  Expanded(
-                    child: Padding(
-                      padding: EdgeInsets.all(8),
-                      child: DropdownButtonFormField<String>(
-                        value: selectedRota,
-                        style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 20
+                  ],),
+                  Row(children: <Widget>[
+                    Text("ROTA:", style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),),
+                    Expanded(
+                      child: Padding(
+                        padding: EdgeInsets.all(8),
+                        child: DropdownButtonFormField<String>(
+                          value: selectedRota,
+                          style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 20
+                          ),
+                          hint: Text("SELECIONAR"),
+                          items: rotas.map((String value) {
+                            return DropdownMenuItem<String>(
+                                value: value,
+                                child: Text(value.toUpperCase())
+                            );
+                          }).toList(),
+                          onSaved: (rota) {
+                            _viagem.rota = rota!;
+                            _viagem.rotaORDERBY = _viagem.rota;
+                          },
+                          validator: (value) {
+                            return Validador()
+                                .add(Validar.OBRIGATORIO, msg: "Campo Obrigatório")
+                                .valido(value);
+                          },
+                          onChanged: (rota) {
+                            setState(() {
+                              selectedRota = rota;
+                            });
+                          },
                         ),
-                        hint: Text("SELECIONAR"),
-                        items: rotas.map((String value) {
-                          return DropdownMenuItem<String>(
-                              value: value,
-                              child: Text(value.toUpperCase())
-                          );
-                        }).toList(),
-                        onSaved: (rota) {
-                          _viagem.rota = rota!;
-                          _viagem.rotaORDERBY = _viagem.rota;
-                        },
-                        validator: (value) {
-                          return Validador()
-                              .add(Validar.OBRIGATORIO, msg: "Campo Obrigatório")
-                              .valido(value);
-                        },
-                        onChanged: (rota) {
-                          setState(() {
-                            selectedRota = rota;
-                          });
-                        },
                       ),
                     ),
-                  ),
-                ],),
-                Row(children: <Widget>[
-                  Text("SENTIDO:", style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),),
-                  Expanded(
-                    child: Padding(
-                      padding: EdgeInsets.all(8),
-                      child: DropdownButtonFormField<String>(
-                        value: selectedEntradaSaida,
-                        style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 20
+                  ],),
+                  Row(children: <Widget>[
+                    Text("SENTIDO:", style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),),
+                    Expanded(
+                      child: Padding(
+                        padding: EdgeInsets.all(8),
+                        child: DropdownButtonFormField<String>(
+                          value: selectedEntradaSaida,
+                          style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 20
+                          ),
+                          hint: Text("SELECIONAR"),
+                          items: entradaSaida.map((String value) {
+                            return DropdownMenuItem<String>(
+                                value: value,
+                                child: Text(value.toUpperCase())
+                            );
+                          }).toList(),
+                          onSaved: (e) {
+                            _viagem.entradaSaida = e!;
+                          },
+                          validator: (value) {
+                            return Validador()
+                                .add(Validar.OBRIGATORIO, msg: "Campo Obrigatório")
+                                .valido(value);
+                          },
+                          onChanged: (e) {
+                            setState(() {
+                              selectedEntradaSaida = e;
+                            });
+                          },
                         ),
-                        hint: Text("SELECIONAR"),
-                        items: entradaSaida.map((String value) {
-                          return DropdownMenuItem<String>(
-                              value: value,
-                              child: Text(value.toUpperCase())
-                          );
-                        }).toList(),
-                        onSaved: (e) {
-                          _viagem.entradaSaida = e!;
-                        },
-                        validator: (value) {
-                          return Validador()
-                              .add(Validar.OBRIGATORIO, msg: "Campo Obrigatório")
-                              .valido(value);
-                        },
-                        onChanged: (e) {
-                          setState(() {
-                            selectedEntradaSaida = e;
-                          });
-                        },
                       ),
                     ),
-                  ),
-                ],),
-                Row(children: <Widget>[
-                  Text("TIPO:", style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),),
-                  Expanded(
-                    child: Padding(
-                      padding: EdgeInsets.all(8),
-                      child: DropdownButtonFormField<String>(
-                        value: selectedNormalExtra,
-                        style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 20
+                  ],),
+                  Row(children: <Widget>[
+                    Text("TIPO:", style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),),
+                    Expanded(
+                      child: Padding(
+                        padding: EdgeInsets.all(8),
+                        child: DropdownButtonFormField<String>(
+                          value: selectedNormalExtra,
+                          style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 20
+                          ),
+                          hint: Text("SELECIONAR"),
+                          items: normalExtra.map((String value) {
+                            return DropdownMenuItem<String>(
+                                value: value,
+                                child: Text(value.toUpperCase())
+                            );
+                          }).toList(),
+                          onSaved: (n) {
+                            _viagem.normalExtra = n!;
+                          },
+                          validator: (value) {
+                            return Validador()
+                                .add(Validar.OBRIGATORIO, msg: "Campo Obrigatório")
+                                .valido(value);
+                          },
+                          onChanged: (n) {
+                            setState(() {
+                              selectedNormalExtra = n;
+                            });
+                          },
                         ),
-                        hint: Text("SELECIONAR"),
-                        items: normalExtra.map((String value) {
-                          return DropdownMenuItem<String>(
-                              value: value,
-                              child: Text(value.toUpperCase())
-                          );
-                        }).toList(),
-                        onSaved: (n) {
-                          _viagem.normalExtra = n!;
-                        },
-                        validator: (value) {
-                          return Validador()
-                              .add(Validar.OBRIGATORIO, msg: "Campo Obrigatório")
-                              .valido(value);
-                        },
-                        onChanged: (n) {
-                          setState(() {
-                            selectedNormalExtra = n;
-                          });
-                        },
                       ),
                     ),
-                  ),
-                ],),
+                  ],),
+                ],
+
                 Row(children: <Widget>[
                   Text("VEÍCULO:", style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),),
                   Expanded(child: Padding(

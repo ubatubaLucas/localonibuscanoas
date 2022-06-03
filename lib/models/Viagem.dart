@@ -25,6 +25,7 @@ class Viagem {
   late Timestamp _regTime;
   late String _entradaSaida;
   late String _normalExtra;
+  late int _ficha;
 
   Viagem();
 
@@ -50,6 +51,7 @@ class Viagem {
     this.dataFimDT = documentSnapshot["dataFimDT"];
     this.entradaSaida = documentSnapshot["entradaSaida"];
     this.normalExtra = documentSnapshot["normalExtra"];
+    this.ficha = documentSnapshot["ficha"];
 
   }
 
@@ -60,7 +62,7 @@ class Viagem {
     this.userId = usuarioLogado!.uid;
 
     FirebaseFirestore db = FirebaseFirestore.instance;
-    CollectionReference viagens = db.collection("20220303");
+    CollectionReference viagens = db.collection("VIAGENS");
     this.id = viagens.doc().id;
 
   }
@@ -91,11 +93,18 @@ class Viagem {
       "regTime" : this.regTime,
       "entradaSaida" : this.entradaSaida,
       "normalExtra" : this.normalExtra,
+      "ficha" : this.ficha,
 
     };
 
     return map;
 
+  }
+
+  int get ficha => _ficha;
+
+  set ficha(int value) {
+    _ficha = value;
   }
 
   String get entradaSaida => _entradaSaida;

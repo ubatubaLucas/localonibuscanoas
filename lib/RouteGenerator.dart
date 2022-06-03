@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:localonibus/views/AtualizarSenha.dart';
 import 'package:localonibus/views/CadastrarUsuario.dart';
 import 'package:localonibus/views/ConsultaMotorista.dart';
+import 'package:localonibus/views/ConsultaOcorrencia.dart';
 import 'package:localonibus/views/ConsultaVeiculo.dart';
 import 'package:localonibus/views/ConsultaViagem.dart';
 import 'package:localonibus/views/ConsultaViagemCliente.dart';
@@ -15,6 +16,7 @@ import 'package:localonibus/views/Login.dart';
 import 'package:localonibus/views/Home.dart';
 import 'package:localonibus/views/HomeMotorista.dart';
 import 'package:localonibus/views/RegistrarViagemMotorista.dart';
+import 'package:localonibus/views/RelatorioViagens.dart';
 
 class RouteGenerator {
 
@@ -71,6 +73,10 @@ class RouteGenerator {
         return MaterialPageRoute(
             builder: (_) => ConsultaViagem()
         );
+      case "/RelatorioViagens" :
+        return MaterialPageRoute(
+            builder: (_) => RelatorioViagens()
+        );
         case "/ConsultarViagemMotorista" :
         return MaterialPageRoute(
             builder: (_) => ConsultaViagemMotorista()
@@ -90,6 +96,10 @@ class RouteGenerator {
       case "/ConsultarMotorista" :
         return MaterialPageRoute(
             builder: (_) => ConsultaMotorista()
+        );
+      case "/ConsultarOcorrencia" :
+        return MaterialPageRoute(
+            builder: (_) => ConsultaOcorrencia()
         );
       default:
         _erroRota();

@@ -24,7 +24,7 @@ class _ConsultaViagemState extends State<ConsultaViagem> {
   //String _nVia = "";
 
   List<String> clientes = [];
-  List<String> clientesPosData = ["AGCO", "EDLO", "FRUKI", "KUEHNE NAGEL", "MIDEA CARRIER", "MILLS", "PETROBRAS", "PROLEC GE", "TEDESCO", "TERESA", "UNIDASUL"];
+  List<String> clientesPosData = ["AGCO", "EDLO", "EVENTUAL", "FRUKI", "KUEHNE NAGEL", "MIDEA CARRIER", "MILLS", "PETROBRAS", "PROLEC GE", "TEDESCO", "TERESA", "UNIDASUL"];
 
   List<String> turnos = [];
   List<String> turnosAgco = ["ADM", "ESTAGIARIOS", "T2"];
@@ -63,7 +63,7 @@ class _ConsultaViagemState extends State<ConsultaViagem> {
   List<String> rotasTedescoTurnoB = ["3"];
   List<String> rotasTedescoTurnoC = ["4"];
   List<String> rotasTeresaCircular = ["07H45", "11H40", "15H40"];
-  List<String> rotasUnidasulEstacao = ["04H55", "09H50", "10H55", "14H30", "17H05", "20H00"];
+  List<String> rotasUnidasulEstacao = ["04H55", "09H50", "10H55", "14H30", "16H40", "20H00"];
   List<String> rotasUnidasulT1 = ["01","02","03","04"];
   List<String> rotasUnidasulT2 = ["10","11","12","13"];
   List<String> rotas = [];
@@ -118,7 +118,7 @@ class _ConsultaViagemState extends State<ConsultaViagem> {
 
     FirebaseFirestore db = FirebaseFirestore.instance;
     Query query = await db
-        .collection("20220303")
+        .collection("VIAGENS")
         .orderBy("dataInicioDTORDERBY", descending: true)
         .orderBy("turnoORDERBY", descending: false)
         .orderBy("rotaORDERBY", descending: false)
@@ -171,9 +171,9 @@ class _ConsultaViagemState extends State<ConsultaViagem> {
 
   Future<Stream<QuerySnapshot>?> _adicionarListenerConsultaViagem() async {
 
-    FirebaseFirestore db = FirebaseFirestore.instance;
-    Stream<QuerySnapshot> stream = await db
-        .collection("20220303")
+    FirebaseFirestore db = await FirebaseFirestore.instance;
+    Stream<QuerySnapshot> stream = db
+        .collection("VIAGENS")
         .orderBy("regTime", descending: true)
         .limit(10)
         .snapshots();
@@ -225,7 +225,7 @@ class _ConsultaViagemState extends State<ConsultaViagem> {
   _removerAnuncio(String viagemId){
 
     FirebaseFirestore db = FirebaseFirestore.instance;
-    db.collection("20220303")
+    db.collection("VIAGENS")
         .doc( viagemId )
         .delete();
   }
@@ -327,7 +327,7 @@ class _ConsultaViagemState extends State<ConsultaViagem> {
                                         }
                                         else if (cliente == "KUEHNE NAGEL") {
                                           turnos = turnosKuehne;
-                                          _nViagensGetNumero = " / " + (rotasKuehne4x3.length * 4 + rotasKuehne5x2.length * 2 + (rotasKuehne6x1.length * 1) + 1).toString();
+                                          _nViagensGetNumero = " / " + (rotasKuehne4x3.length * 4 + rotasKuehne5x2.length * 2 + (rotasKuehne6x1.length * 1) + (rotasKuehneRefeicoes.length)*1 + 1).toString();
                                         }
                                         else if (cliente == "MIDEA CARRIER") {
                                           turnos = turnosMidea;
@@ -503,7 +503,7 @@ class _ConsultaViagemState extends State<ConsultaViagem> {
                                             else if (selectedTurno == "4X3" && selectedCliente == "KUEHNE NAGEL") {
                                               _nViagensGetNumero = " / " + (4).toString();}
                                             else if (selectedTurno == "REFEICOES" && selectedCliente == "KUEHNE NAGEL") {
-                                              _nViagensGetNumero = " / " + (4).toString();}
+                                              _nViagensGetNumero = " / " + (1).toString();}
                                             else if (selectedTurno == "INTERNO" && selectedCliente == "PETROBRAS") {
                                               _nViagensGetNumero = " / " + (1).toString();}
                                             else if (selectedTurno == "TURNO" && selectedCliente == "PETROBRAS") {
@@ -692,8 +692,65 @@ class _ConsultaViagemState extends State<ConsultaViagem> {
                                   context: context,
                                   builder: (context){
                                     return AlertDialog(
-                                      content: Padding(padding: EdgeInsets.only(top: 20), child: Text("DESEJA REALMENTE EXCLUIR A VIAGEM?", style: TextStyle(fontSize: 20),),),
+                                      contentPadding: EdgeInsets.symmetric(),
+                                      content: Row(
+                                        mainAxisAlignment: MainAxisAlignment.center,
+                                        children: <Widget>[
+                                          Padding(padding: EdgeInsets.fromLTRB(0, 25, 0, 15), child: Text("DESEJA REALMENTE EXCLUIR A VIAGEM?", style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),),),
+                                        ],
+                                      ),
                                       actions: <Widget>[
+                                        Padding(
+                                          padding: EdgeInsets.fromLTRB(25, 0, 25, 0),
+                                          child: Container(
+                                              decoration: BoxDecoration(
+                                                  border: Border.all(color: Colors.black)
+                                              ),
+                                              alignment: Alignment.center,
+                                              child: Padding(
+                                                  padding: EdgeInsets.all(20),
+                                                  child: Column(
+                                                    children: <Widget>[
+                                                      Row(children: <Widget>[
+                                                        Text("DATA: ", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),),
+                                                        Text(viagem.dataInicio, style: TextStyle(fontSize: 18),),
+                                                      ],),
+                                                      Row(children: <Widget>[
+                                                        Text("CLIENTE: ", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),),
+                                                        Text(viagem.cliente.toUpperCase(), style: TextStyle(fontSize: 18),),
+                                                      ],),
+                                                      Row(children: <Widget>[
+                                                        Text("TURNO: ", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),),
+                                                        Text(viagem.turno.toUpperCase(), style: TextStyle(fontSize: 18),),
+                                                      ],),
+                                                      Row(children: <Widget>[
+                                                        Text("ROTA: ", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),),
+                                                        Text(viagem.rota, style: TextStyle(fontSize: 18),),
+                                                      ],),
+                                                      Row(children: <Widget>[
+                                                        Text("SENTIDO: ", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),),
+                                                        Text(viagem.entradaSaida.toUpperCase(), style: TextStyle(fontSize: 18),),
+                                                      ],),
+                                                      Row(children: <Widget>[
+                                                        Text("TIPO: ", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),),
+                                                        Text(viagem.normalExtra.toUpperCase(), style: TextStyle(fontSize: 18),),
+                                                      ],),
+                                                      Row(children: <Widget>[
+                                                        Text("MOTORISTA: ", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),),
+                                                        Text(viagem.motorista.toUpperCase(), style: TextStyle(fontSize: 18),),
+                                                      ],),
+                                                      Row(children: <Widget>[
+                                                        Text("VEÍCULO: ", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),),
+                                                        Text(viagem.veiculo, style: TextStyle(fontSize: 18),),
+                                                      ],),
+                                                    ],
+                                                    mainAxisAlignment: MainAxisAlignment.start,)
+                                              )
+                                          ),
+                                        ),
+
+
+                                        Padding(padding: EdgeInsets.only(bottom: 25)),
 
                                         Row(
                                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -704,7 +761,7 @@ class _ConsultaViagemState extends State<ConsultaViagem> {
                                                   style: ButtonStyle(backgroundColor: MaterialStateProperty.all(Colors.orange)),
                                                   onPressed: (){
                                             _removerAnuncio( viagem.id );
-                                            _adicionarListenerConsultaViagem();
+                                            (selectedCliente != null) ? _filtrarViagens() : _adicionarListenerConsultaViagem();
                                             Navigator.pop(context);
                                           },
                                                   child: Padding(padding: EdgeInsets.fromLTRB(0, 10, 0, 10), child: Text("SIM", style: TextStyle(fontSize: 20),),)),
@@ -722,7 +779,7 @@ class _ConsultaViagemState extends State<ConsultaViagem> {
 
                                           ],
                                         ),
-                                        Padding(padding: EdgeInsets.only(bottom: 25)),
+                                        Padding(padding: EdgeInsets.only(bottom: 15)),
                                       ],
                                     );
                                   }

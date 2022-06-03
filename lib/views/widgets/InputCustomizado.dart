@@ -9,6 +9,7 @@ class InputCustomizado extends StatelessWidget {
   final bool obscure;
   final bool autofocus;
   final TextInputType type;
+  final int? maxLines;
   final TextInputAction action;
   final List<TextInputFormatter>? inputFormatters;
   final FormFieldValidator<String>? validator;
@@ -24,6 +25,7 @@ class InputCustomizado extends StatelessWidget {
     this.type = TextInputType.text,
     this.action = TextInputAction.next,
     this.inputFormatters,
+    this.maxLines = 1,
     this.validator,
     this.onSaved,
     this.readOnly = false,
@@ -40,6 +42,7 @@ class InputCustomizado extends StatelessWidget {
       keyboardType: this.type,
       inputFormatters: this.inputFormatters,
       validator: this.validator,
+      maxLines: this.maxLines,
       onSaved: this.onSaved,
       readOnly: this.readOnly,
       style: TextStyle(fontSize: 20),

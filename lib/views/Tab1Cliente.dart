@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:localonibus/views/widgets/BotaoCustomizado.dart';
 
 class MenuCliente extends StatefulWidget {
 
@@ -29,23 +28,6 @@ class _MenuClienteState extends State<MenuCliente> {
                 )
             ),
             SizedBox(height: 20,),
-            SizedBox(
-                width: 250,
-                child: BotaoCustomizado(
-                    texto: "OCORRÊNCIA",
-                    onPressed: () {
-                      //_registrarOcorrencia();
-                    }
-                )
-            ),
-            SizedBox(height: 20,),
-            SizedBox(
-                width: 250,
-                child: BotaoCustomizado(
-                    texto: "ATRASO",
-                    onPressed: () {}
-                )
-            ),
 
           ],
         ),

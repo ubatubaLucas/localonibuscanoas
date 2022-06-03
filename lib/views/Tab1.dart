@@ -21,6 +21,12 @@ class _MenuState extends State<Menu> {
 
   }
 
+  _registrarOcorrencia() {
+
+    Navigator.pushNamed(context, "/RegistrarOcorrencia");
+
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(child:
@@ -55,34 +61,11 @@ class _MenuState extends State<Menu> {
                 SizedBox(
                     width: 250,
                     child: BotaoCustomizado(
-                        texto: "ABASTECIMENTO",
-                        onPressed: () {}
-                    )
-                ),
-                SizedBox(height: 20,),
-                SizedBox(
-                    width: 250,
-                    child: BotaoCustomizado(
-                        texto: "SOCORRO",
-                        onPressed: () {}
-                    )
-                ),
-                SizedBox(height: 20,),
-                SizedBox(
-                    width: 250,
-                    child: BotaoCustomizado(
+                        corFundo: Colors.orange,
                         texto: "OCORRÊNCIA",
                         onPressed: () {
-                          //_registrarOcorrencia();
+                          _registrarOcorrencia();
                         }
-                    )
-                ),
-                SizedBox(height: 20,),
-                SizedBox(
-                    width: 250,
-                    child: BotaoCustomizado(
-                        texto: "ATRASO",
-                        onPressed: () {}
                     )
                 ),
                 SizedBox(height: 40,),

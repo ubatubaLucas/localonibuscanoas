@@ -1,0 +1,601 @@
+{
+  "indexes": [
+    {
+      "collectionGroup": "VIAGENS",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "cliente",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "dataInicio",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "regTime",
+          "order": "ASCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "VIAGENS",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "cliente",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "dataInicioDTORDERBY",
+          "order": "DESCENDING"
+        },
+        {
+          "fieldPath": "turnoORDERBY",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "rotaORDERBY",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "horaInicio",
+          "order": "ASCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "VIAGENS",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "cliente",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "entradaSaida",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "normalExtra",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "rota",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "turno",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "dataInicioDTORDERBY",
+          "order": "DESCENDING"
+        },
+        {
+          "fieldPath": "turnoORDERBY",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "rotaORDERBY",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "horaInicio",
+          "order": "ASCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "VIAGENS",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "cliente",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "entradaSaida",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "rota",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "turno",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "dataInicioDTORDERBY",
+          "order": "DESCENDING"
+        },
+        {
+          "fieldPath": "turnoORDERBY",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "rotaORDERBY",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "horaInicio",
+          "order": "ASCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "VIAGENS",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "cliente",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "regTime",
+          "order": "ASCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "VIAGENS",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "cliente",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "rota",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "turno",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "dataInicioDTORDERBY",
+          "order": "DESCENDING"
+        },
+        {
+          "fieldPath": "turnoORDERBY",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "rotaORDERBY",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "horaInicio",
+          "order": "ASCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "VIAGENS",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "cliente",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "turno",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "dataInicioDTORDERBY",
+          "order": "DESCENDING"
+        },
+        {
+          "fieldPath": "turnoORDERBY",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "rotaORDERBY",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "horaInicio",
+          "order": "ASCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "VIAGENS",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "dataInicioDT",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "dataInicioDTORDERBY",
+          "order": "DESCENDING"
+        },
+        {
+          "fieldPath": "turnoORDERBY",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "rotaORDERBY",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "horaInicio",
+          "order": "ASCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "VIAGENS",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "dataInicioDT",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "entradaSaida",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "dataInicioDTORDERBY",
+          "order": "DESCENDING"
+        },
+        {
+          "fieldPath": "turnoORDERBY",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "rotaORDERBY",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "horaInicio",
+          "order": "ASCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "VIAGENS",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "dataInicioDT",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "normalExtra",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "dataInicioDTORDERBY",
+          "order": "DESCENDING"
+        },
+        {
+          "fieldPath": "turnoORDERBY",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "rotaORDERBY",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "horaInicio",
+          "order": "ASCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "VIAGENS",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "dataInicioDT",
+          "order": "DESCENDING"
+        },
+        {
+          "fieldPath": "turno",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "rota",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "horaInicio",
+          "order": "ASCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "VIAGENS",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "dataInicioDTORDERBY",
+          "order": "DESCENDING"
+        },
+        {
+          "fieldPath": "horaInicio",
+          "order": "DESCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "VIAGENS",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "dataInicioDTORDERBY",
+          "order": "DESCENDING"
+        },
+        {
+          "fieldPath": "turnoORDERBY",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "rotaORDERBY",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "horaInicio",
+          "order": "ASCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "VIAGENS",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "entradaSaida",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "dataInicioDTORDERBY",
+          "order": "DESCENDING"
+        },
+        {
+          "fieldPath": "turnoORDERBY",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "rotaORDERBY",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "horaInicio",
+          "order": "ASCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "VIAGENS",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "entradaSaida",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "normalExtra",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "dataInicioDTORDERBY",
+          "order": "DESCENDING"
+        },
+        {
+          "fieldPath": "turnoORDERBY",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "rotaORDERBY",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "horaInicio",
+          "order": "ASCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "VIAGENS",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "motorista",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "dataInicioDTORDERBY",
+          "order": "DESCENDING"
+        },
+        {
+          "fieldPath": "horaInicio",
+          "order": "DESCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "VIAGENS",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "motorista",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "dataInicioDTORDERBY",
+          "order": "DESCENDING"
+        },
+        {
+          "fieldPath": "turnoORDERBY",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "rotaORDERBY",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "horaInicio",
+          "order": "ASCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "VIAGENS",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "motorista",
+          "arrayConfig": "CONTAINS"
+        },
+        {
+          "fieldPath": "dataInicioDTORDERBY",
+          "order": "DESCENDING"
+        },
+        {
+          "fieldPath": "turnoORDERBY",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "rotaORDERBY",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "horaInicio",
+          "order": "ASCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "VIAGENS",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "normalExtra",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "dataInicioDTORDERBY",
+          "order": "DESCENDING"
+        },
+        {
+          "fieldPath": "turnoORDERBY",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "rotaORDERBY",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "horaInicio",
+          "order": "ASCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "VIAGENS",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "userId",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "dataInicioDTORDERBY",
+          "order": "DESCENDING"
+        },
+        {
+          "fieldPath": "horaInicio",
+          "order": "DESCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "VIAGENS",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "userId",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "dataInicioDTORDERBY",
+          "order": "DESCENDING"
+        },
+        {
+          "fieldPath": "turnoORDERBY",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "rotaORDERBY",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "horaInicio",
+          "order": "ASCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "VIAGENS",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "veiculo",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "dataInicioDTORDERBY",
+          "order": "DESCENDING"
+        },
+        {
+          "fieldPath": "turnoORDERBY",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "rotaORDERBY",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "horaInicio",
+          "order": "ASCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "USUARIOS",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "tipoUsuario",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "email",
+          "order": "ASCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "USUARIOS",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "tipoUsuario",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "nome",
+          "order": "ASCENDING"
+        }
+      ]
+    }
+  ],
+  "fieldOverrides": []
+}

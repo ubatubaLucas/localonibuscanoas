@@ -2,17 +2,15 @@ import 'dart:async';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:localonibus/models/Viagem.dart';
-import 'package:localonibus/views/widgets/ListViewOcupacao.dart';
 import 'package:intl/intl.dart';
 
-class OcupacaoConsulta extends StatefulWidget {
+class RelatorioViagens extends StatefulWidget {
 
   @override
-  _OcupacaoConsultaState createState() => _OcupacaoConsultaState();
+  _RelatorioViagensState createState() => _RelatorioViagensState();
 }
 
-class _OcupacaoConsultaState extends State<OcupacaoConsulta> {
+class _RelatorioViagensState extends State<RelatorioViagens> {
 
   final _controllerOcupacaoConsulta = StreamController<QuerySnapshot>.broadcast();
   late StreamSubscription _subscription;
@@ -61,8 +59,6 @@ class _OcupacaoConsultaState extends State<OcupacaoConsulta> {
   List<String> rotasUnidasulT1 = ["01","02","03","04"];
   List<String> rotasUnidasulT2 = ["10","11","12","13"];
   List<String> rotas = [];
-
-  List<int> veiculos = [200,201,202,203,204,205,206,207,208,209,210,211,500,501,502,503,504,505,506,507,508,509,510,511,1000,1001,1002,1003,1004,1005,1006,1007,1008,1009,1010,1011,1012,1013,1014,1015,1016,1017,1018,1100,1200,1300,1400,1500,1600,1700,1800,1900,2000,2100,2240,2244,2245,2246,2247,2249,2250,2251,2252,2253,2254,2255,2256,2257,2258,2259,2260,2261,2262,2263,2264,2265,2266,2267,2268,2269,2270,2271,2272,2273,2600,2900,3000,3100,3200,3300,3400,3500,3600,3700,3800,3900,4000,4100,4200,4300,4400,4500,4600,4700,4800,4900,7200,7300,7400,7500,7600,7700,7800,8700,8800,8900,9000,9100,9200,9300,9400,9500,9600,9700,9800,9900];
 
   List<String> normalExtra = ["NORMAL", "EXTRA"];
   List<String> entradaSaida = ["ENTRADA", "SAIDA"];
@@ -180,18 +176,9 @@ class _OcupacaoConsultaState extends State<OcupacaoConsulta> {
   @override
   Widget build(BuildContext context) {
 
-    var carregandoViagens = Center(
-      child: Column(children: <Widget>[
-
-        Text("CARREGANDO VIAGENS..."),
-        CircularProgressIndicator()
-
-      ],),
-    );
-
     return Scaffold(
       appBar: AppBar(
-        title: Text("DASHBOARD"),
+        title: Text("RELATÓRIO"),
         centerTitle: true,
         backgroundColor: Colors.orange,
         actions: <Widget>[
@@ -224,8 +211,6 @@ class _OcupacaoConsultaState extends State<OcupacaoConsulta> {
                                           focusedBorder: UnderlineInputBorder(borderSide: BorderSide(color: Colors.black54))
                                       ),
                                     )),
-
-
 
                                     IconButton(
                                         onPressed: () {
@@ -512,98 +497,93 @@ class _OcupacaoConsultaState extends State<OcupacaoConsulta> {
           }, icon: Icon(Icons.filter_alt))
         ],
       ),
-      body: Container(child:
-      Column(children: <Widget>[
-        Row(
-          children: <Widget>[
-          Expanded(
-            child: Container(
-              color: Colors.grey[400],
-              child: Table(
-                columnWidths:({
-                  0: FlexColumnWidth(0.2),
-                  1: FlexColumnWidth(0.2),
-                  2: FlexColumnWidth(0.2),
-                  3: FlexColumnWidth(0.2),
-                  4: FlexColumnWidth(0.2),
-                  5: FlexColumnWidth(0.2),
-                }),
-                border: TableBorder.all(),
-                children: <TableRow>[
-                  TableRow(
-                      children: <Widget>[
-                        TableCell(
-                          child: Container(alignment: Alignment.center, height: 50, child: Text("DATA", style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold), textAlign: TextAlign.center,),),
+      body: Container(
+        child: ListView(children: <Widget>[
+          Column(children: <Widget>[
+            Row(
+              children: <Widget>[
+                Expanded(
+                  child: Container(
+                    color: Colors.grey[400],
+                    child: Table(
+                      columnWidths:({
+                        0: FlexColumnWidth(0.2),
+                        1: FlexColumnWidth(0.2),
+                        2: FlexColumnWidth(0.2),
+                        3: FlexColumnWidth(0.2),
+                        4: FlexColumnWidth(0.2),
+                        5: FlexColumnWidth(0.2),
+                      }),
+                      border: TableBorder.all(),
+                      children: <TableRow>[
+                        TableRow(
+                            children: <Widget>[
+                              TableCell(
+                                child: Container(alignment: Alignment.center, height: 50, child: Text("DATA", style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold), textAlign: TextAlign.center,),),
+                              ),
+                              TableCell(
+                                child: Container(alignment: Alignment.center, height: 50, child: Text("CLIENTE", style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold), textAlign: TextAlign.center,),),
+                              ),
+                              TableCell(
+                                child: Container(alignment: Alignment.center, height: 50, child: Text("TURNO", style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold), textAlign: TextAlign.center,),),
+                              ),
+                              TableCell(
+                                child: Container(alignment: Alignment.center, height: 50, child: Text("ROTA", style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold), textAlign: TextAlign.center,),),
+                              ),
+                              TableCell(
+                                child: Container(alignment: Alignment.center, height: 50, child: Text("SITUAÇÃO", style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold), textAlign: TextAlign.center,),),
+                              ),
+                            ]
+                        )
+                      ],
+                    ),
+                  ),
+                ),
+              ],),
+            Row(
+              children: <Widget>[
+                Expanded(
+                  child: Container(
+                    //color: Colors.grey[300],
+                    child: Table(
+
+                      columnWidths:({
+                        0: FlexColumnWidth(0.2),
+                        1: FlexColumnWidth(0.2),
+                        2: FlexColumnWidth(0.2),
+                        3: FlexColumnWidth(0.2),
+                        4: FlexColumnWidth(0.2),
+                        5: FlexColumnWidth(0.2),
+                      }),
+                      border: TableBorder.all(),
+                      children: <TableRow>[
+                        TableRow(
+                          //decoration: BoxDecoration(color: Colors.green),
+                            children: <Widget>[
+                              TableCell(
+                                child: Container(alignment: Alignment.center, height: 50, child: Text( (selectedDataInicio == null) ? "(selecionar)" : selectedDataInicio.toString(), style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold), textAlign: TextAlign.center,),),
+                              ),
+                              TableCell(
+                                child: Container(alignment: Alignment.center, height: 50, child: Text( (selectedCliente == null) ? "(selecionar)" : "kkk", style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold), textAlign: TextAlign.center,),),
+                              ),
+                              TableCell(
+                                child: Container(alignment: Alignment.center, height: 50, child: Text( (selectedTurno == null) ? "(selecionar)" : selectedTurno.toString(), style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold), textAlign: TextAlign.center,),),
+                              ),
+                              TableCell(
+                                child: Container(alignment: Alignment.center, height: 50, child: Text( (selectedTurno == null) ? "(selecionar)" : "(rota)", style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold), textAlign: TextAlign.center,),),
+                              ),
+                              TableCell(
+                                child: Container(alignment: Alignment.center, height: 50, child: Text( (selectedTurno == null) ? "(selecionar)" : "(situação)", style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold), textAlign: TextAlign.center,),),
+                              ),
+                            ]
                         ),
-                        TableCell(
-                          child: Container(alignment: Alignment.center, height: 50, child: Text("CLIENTE", style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold), textAlign: TextAlign.center,),),
-                        ),
-                        TableCell(
-                          child: Container(alignment: Alignment.center, height: 50, child: Text("ROTA", style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold), textAlign: TextAlign.center,),),
-                        ),
-                        TableCell(
-                          child: Container(alignment: Alignment.center, height: 50, child: Text("SENTIDO", style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold), textAlign: TextAlign.center,),),
-                        ),
-                        TableCell(
-                          child: Container(alignment: Alignment.center, height: 50, child: Text("QTD PAX", style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold), textAlign: TextAlign.center,),),
-                        ),
-                        TableCell(
-                          child: Container(alignment: Alignment.center, height: 50, child: Text("TX OCUP", style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold), textAlign: TextAlign.center,),),
-                        ),
-                      ]
-                  )
-                ],
-              ),
-            ),
-          ),
-        ],),
-
-        StreamBuilder(
-          stream: _controllerOcupacaoConsulta.stream,
-          builder: (context, snapshot) {
-            switch (snapshot.connectionState) {
-              case ConnectionState.none:
-              case ConnectionState.waiting:
-                return carregandoViagens;
-              case ConnectionState.active:
-              case ConnectionState.done:
-
-                QuerySnapshot querySnapshot = snapshot.data as QuerySnapshot;
-
-                if (querySnapshot.docs.length == 0) {
-                  return Container(
-                    padding: EdgeInsets.all(25),
-                    child: Text("NENHUMA VIAGEM ENCONTRADA!",
-                      style: TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold
-                      ),),
-                  );
-                }
-
-                return Expanded(
-                    child: ListView.builder(
-                        itemCount: querySnapshot.docs.length,
-                        itemBuilder: (_, indice){
-
-                          List<DocumentSnapshot> viagens = querySnapshot.docs.toList();
-                          DocumentSnapshot documentSnapshot = viagens[indice];
-                          Viagem viagem = Viagem.fromDocumentSnapshot(documentSnapshot);
-
-                          return Container(
-                            color: (indice % 2 == 0) ? Colors.white : Colors.grey[300],
-                            child: ListViewOcupacao(
-                              viagem: viagem,
-                            ),
-                          );
-
-                        }
-                    )
-                );
-
-            }
-          },
-        )]),),
+                      ],
+                    ),
+                  ),
+                ),
+              ],)
+          ])
+        ],)),
 
     );
   }

@@ -240,7 +240,7 @@ class _LoginState extends State<Login> {
                   },
                 ),
                 SizedBox(height: 10,),
-                Text("v. 2.1.6",
+                Text("v. 2.2.0",
                   textAlign: TextAlign.center,),
 
                 Padding(padding: EdgeInsets.only(top: 20),

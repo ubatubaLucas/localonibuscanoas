@@ -19,7 +19,7 @@ class DigitarViagem extends StatefulWidget {
 
 class _DigitarViagemState extends State<DigitarViagem> {
 
-  List<String> clientes = ["AGCO", "EDLO", "FRUKI", "KUEHNE NAGEL", "MIDEA CARRIER", "MILLS", "PETROBRAS", "PROLEC GE", "TEDESCO", "TERESA", "UNIDASUL"];
+  List<String> clientes = ["AGCO", "EDLO", "EVENTUAL", "FRUKI", "KUEHNE NAGEL", "MIDEA CARRIER", "MILLS", "PETROBRAS", "PROLEC GE", "TEDESCO", "TERESA", "UNIDASUL"];
 
   List<String> turnos = [];
   List<String> turnosAgco = ["ADM", "ESTAGIARIOS", "T2"];
@@ -58,7 +58,7 @@ class _DigitarViagemState extends State<DigitarViagem> {
   List<String> rotasTedescoTurnoB = ["3"];
   List<String> rotasTedescoTurnoC = ["4"];
   List<String> rotasTeresaCircular = ["07H45", "11H40", "15H40"];
-  List<String> rotasUnidasulEstacao = ["04H55", "09H50", "10H55", "14H30", "17H05", "20H00"];
+  List<String> rotasUnidasulEstacao = ["04H55", "09H50", "10H55", "14H30", "16H40", "20H00"];
   List<String> rotasUnidasulT1 = ["01","02","03","04"];
   List<String> rotasUnidasulT2 = ["10","11","12","13"];
   List<String> rotas = [];
@@ -88,6 +88,7 @@ class _DigitarViagemState extends State<DigitarViagem> {
   TextEditingController _controllerKmInicio = TextEditingController(text: "");
   TextEditingController _controllerKmFim = TextEditingController(text: "");
   TextEditingController _controllerQtdPax = TextEditingController(text: "");
+  TextEditingController _controllerFicha = TextEditingController(text: "");
 
   late DateTime _getDataInicioDT;
   late DateTime _getDataFimDT;
@@ -173,7 +174,24 @@ class _DigitarViagemState extends State<DigitarViagem> {
 
     _viagem.motorista = _controllerMotorista.text + " - " + _nomeMotoristaConsulta;
 
-    db.collection("20220303")
+      if (selectedCliente == "EVENTUAL") {
+
+        _viagem.turno = "EVENTUAL";
+        _viagem.turnoORDERBY = "EVENTUAL";
+        _viagem.rota = "EVENTUAL";
+        _viagem.rotaORDERBY = "EVENTUAL";
+        _viagem.normalExtra = "EVENTUAL";
+        _viagem.entradaSaida = "EVENTUAL";
+
+      }
+
+      if (selectedCliente != "EVENTUAL") {
+
+        _viagem.ficha = 0;
+
+      }
+
+    db.collection("VIAGENS")
         .doc( _viagem.id )
         .set(_viagem.toMap()).then((_) {
       Navigator.pop(_dialogContext);
@@ -348,6 +366,33 @@ class _DigitarViagemState extends State<DigitarViagem> {
                     ),
                   ),
                 ],),
+
+            if (selectedCliente == "EVENTUAL") ...[
+      Row(children: <Widget>[
+      Text("FICHA:", style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),),
+      Expanded(child: Padding(
+        padding: EdgeInsets.all(8),
+        child: InputCustomizado(
+            controller: _controllerFicha,
+            hint: "N° VIAGEM",
+            onSaved: (ficha) {
+              _viagem.ficha = int.parse(ficha!.replaceAll(".", ""));
+              return null;
+            },
+            validator: (value) {
+              return Validador()
+                  .add(Validar.OBRIGATORIO, msg: "Campo Obrigatório")
+                  .valido(value);
+            },
+            type: TextInputType.number,
+            inputFormatters: [
+              FilteringTextInputFormatter.digitsOnly,
+            ]
+        ),
+      ))
+      ],),
+    ] else ...[
+
                 Row(children: <Widget>[
                   Text("TURNO:", style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),),
                   Expanded(
@@ -550,6 +595,7 @@ class _DigitarViagemState extends State<DigitarViagem> {
                     ),
                   ),
                 ],),
+            ],
                 Row(children: <Widget>[
                   Text("MOTORISTA:", style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),),
                   Expanded(child: Padding(
